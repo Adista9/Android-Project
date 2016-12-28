@@ -1,7 +1,10 @@
 package distasio.be.projetandroid.activity;
 
+
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -74,25 +77,46 @@ public class LoginActivity extends AppCompatActivity {
         }
     };
 
-    /**
-     * Reçoit le résultat de l'appel à la classe AsyncLogin
-     * @param resultCode
-     */
-    public void populateLogin(String resultCode)
-    {
-        // #TODO equals 0 bizarre
-        if(resultCode.equals("0"))
+    public void populateLogin(String resultCode) {
+        /**
+         * Problème ici, les codes retours 0 et 200 n'entrent pas dans le switch case
+         * j'ai vérifié leurs tailles, en faisant un "resultCode.length()" quand il ressortait le 0, il mettait
+         * que la taille est égale à 2, alors qu'il n'y a qu'un chiffre, et pour 200, la taille = 4,
+         * je ne comprends pas
+         */
+        switch (resultCode) {
+            case "0":
+                this.displayMsg("Connexion OK. ");
+                break;
+            case "100":
+                this.displayMsg("Problème de pseudo (non transmis ou vide). ");
+                break;
+            case "110":
+                this.displayMsg("Problème de mot de passe (non transmis ou vide). ");
+                break;
+            case "200":
+                this.displayMsg("Combinaison pseudo/mot de passe incorrecte. ");
+                break;
+            case "1000":
+                this.displayMsg("Problème de connexion à la DB. ");
+                break;
+            case "2000":
+                this.displayMsg("Un problème autre est survenu. ");
+                break;
+        }
+        if(resultCode.length()==2) {
             this.displayMsg("Connexion OK. ");
-        else if(resultCode.equals("100"))
-            this.displayMsg("Problème de pseudo (non transmis ou vide). ");
-        else if(resultCode.equals("110"))
-            this.displayMsg("Problème de mot de passe (non transmis ou vide). ");
-        else if(resultCode.equals("200"))
+            EditText et_username = (EditText) findViewById(R.id.et_userName);
+            EditText et_password = (EditText) findViewById(R.id.et_password1);
+            //Si les identifiants sont bons, alors on start la prochaine activity
+            Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
+            intent.putExtra("pseudo", et_username.getText());
+            intent.putExtra("mdp", et_password.getText());
+            startActivity(intent);
+        }
+
+        if(resultCode.length()==4)
             this.displayMsg("Combinaison pseudo/mot de passe incorrecte. ");
-        else if(resultCode.equals("1000"))
-            this.displayMsg("Problème de connexion à la DB. ");
-        else if(resultCode.equals("2000"))
-            this.displayMsg("Un problème autre est survenu. ");
     }
 
     /**

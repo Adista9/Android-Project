@@ -54,6 +54,11 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
+        //Je récupère l'intent de la page de login
+        Intent intent = getIntent();
+        String pseudo = intent.getStringExtra("pseudo");
+        String mdp = intent.getStringExtra("mdp");
+
         btn_addScore    = (Button) findViewById(R.id.btn_addScore);
         btn_showTop10   = (Button) findViewById(R.id.btn_showTop10);
         btn_showGames   = (Button) findViewById(R.id.btn_showGames);
@@ -64,7 +69,7 @@ public class MenuActivity extends AppCompatActivity {
         btn_showGames.setOnClickListener(onClickShowGames);
         btn_showUsers.setOnClickListener(onClickShowUsers);
 
-        getConnectionState();
+        //getConnectionState();
     }
 
     /***
