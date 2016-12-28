@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="distasio.be.projetandroid.LoginActivity"
+    tools:context="distasio.be.projetandroid.activity.LoginActivity"
     android:orientation ="vertical">
 
     <EditText
@@ -44,9 +44,4 @@
         android:layout_height="wrap_content"
         android:id="@+id/btn_register" />
 
-    <TextView
-        android:text="RESULTAT"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_Result"/>
 </LinearLayout>
