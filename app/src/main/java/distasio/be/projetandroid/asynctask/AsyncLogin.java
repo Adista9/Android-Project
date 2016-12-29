@@ -47,7 +47,7 @@ public class AsyncLogin extends AsyncTask<String, Void, String> {
         connectedUser.setUsername(params[0]);
         connectedUser.setPassword(params[1]);
 
-        String url_base = "http://androidproject.16mb.com/RPC/se_connecter.php?";
+        String url_base = "http://androidproject.16mb.com/RPC/se_connecter.php";
         HttpURLConnection connection = null;
 
         try {

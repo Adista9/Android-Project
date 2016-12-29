@@ -11,6 +11,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 import distasio.be.projetandroid.User;
 import distasio.be.projetandroid.activity.LoginActivity;
@@ -20,7 +21,7 @@ import distasio.be.projetandroid.activity.LoginActivity;
  * Created by Anthony on 25-12-16.
  */
 
-public class AsyncRegister extends AsyncTask<String, Void , Integer> {
+public class AsyncRegister extends AsyncTask<String, Void , ArrayList> {
     private LoginActivity loginActivity;
     private ProgressDialog progressDialog;
 
@@ -38,23 +39,24 @@ public class AsyncRegister extends AsyncTask<String, Void , Integer> {
     }
 
     @Override
-    protected Integer doInBackground(String... params) {
+    protected ArrayList doInBackground(String... params) {
         User registeredUser = new User();
+        String name;
+        int code = 10;
+        ArrayList<Integer> res = new ArrayList<>();
+
         registeredUser.setUsername(params[0]);
         registeredUser.setPassword(params[1]);
 
-        String url_base = "http://androidproject.16mb.com/RPC/creer_compte.php";
+        String url_base = "http://androidproject.16mb.com/RPC/creer_compte.php?";
         HttpURLConnection connection = null;
-        int code = 0;
+
         try {
-            // 1 --- Création de l'objet connection
             URL url = new URL(url_base);
             connection = (HttpURLConnection) url.openConnection();
-            connection.setReadTimeout(10000);
-            connection.setConnectTimeout(15000);
+            connection.setReadTimeout(5000);
+            connection.setConnectTimeout(10000);
             connection.setRequestMethod("POST");
-
-            // Starts the query
 
             OutputStream os = connection.getOutputStream();
             OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
@@ -62,21 +64,28 @@ public class AsyncRegister extends AsyncTask<String, Void , Integer> {
             writer.write("pseudo=" + registeredUser.getUsername() + "&mdp=" + registeredUser.getPassword());
             writer.flush();
             writer.close();
-            os.close();
             connection.connect();
 
             if(connection.getResponseCode() == 200) {
-                // 2 --- Récupération du contenu JSON
-                String name = "";
                 JsonReader json = new JsonReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
                 json.beginObject();
-                while (json.hasNext()) {
+                if (json.hasNext()) {
                     name = json.nextName();
                     if (name.equals("code")) {
                         code = json.nextInt();
+                        res.add(code);
+                    }
+                    if(code == 0) {
+                        // #TODO à corriger
+                        if (json.hasNext()) {
+                            String name2 = json.nextName();
+                            int id = json.nextInt();
+                            res.add(id);
+                        }
                     }
                 }
                 json.endObject();
+                return res;
             }
         } catch (Exception e) {
             Log.e("RPC", "Exception rencontrée.", e);
@@ -87,11 +96,11 @@ public class AsyncRegister extends AsyncTask<String, Void , Integer> {
                 Log.e("Disconnect", "Exception rencontrée.", e);
             }
         }
-        return code;
+        return res;
     }
 
     @Override
-    protected void onPostExecute(Integer result) {
+    protected void onPostExecute(ArrayList result) {
         if(progressDialog.isShowing()) {
             progressDialog.dismiss();
         }

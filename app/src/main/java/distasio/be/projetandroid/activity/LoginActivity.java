@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import distasio.be.projetandroid.asynctask.AsyncLogin;
 import distasio.be.projetandroid.asynctask.AsyncRegister;
 import distasio.be.projetandroid.R;
@@ -23,6 +25,7 @@ public class LoginActivity extends AppCompatActivity {
         //Je rend invisible le champ password2
         et_password2.setVisibility(View.INVISIBLE);
         Button btn_login = (Button)findViewById(R.id.btn_login);
+
         btn_login.setOnClickListener(checkLogin);
 
         Button btn_register = (Button) findViewById(R.id.btn_register);
@@ -31,8 +34,17 @@ public class LoginActivity extends AppCompatActivity {
                 //Je rend visible l'edit text du 2ème mdp quand on clique sur register
                 EditText et_password2 = (EditText) findViewById(R.id.et_password2);
                 et_password2.setVisibility(View.VISIBLE);
-                if(!et_password2.getText().equals(""))
+                if(!et_password2.getText().equals("")){
+                    Button btn_login = (Button)findViewById(R.id.btn_login);
+                    btn_login.setVisibility(View.INVISIBLE);
                     v.setOnClickListener(checkRegister);
+                } else {
+                    Button btn_login = (Button)findViewById(R.id.btn_login);
+                    btn_login.setVisibility(View.VISIBLE);
+                }
+
+
+
             }
         });
 
@@ -51,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
                 new AsyncLogin(LoginActivity.this).execute(et_username.getText().toString(), et_password.getText().toString());
             }
             catch (Exception e){
-                displayMsg(e.getMessage());
+                showMessage(e.getMessage());
             }
         }
     };
@@ -69,10 +81,10 @@ public class LoginActivity extends AppCompatActivity {
                     new AsyncRegister(LoginActivity.this).execute(et_userName.getText().toString(), et_password1.getText().toString());
                 }
                 catch (Exception e){
-                    displayMsg(e.getMessage());
+                    showMessage(e.getMessage());
                 }
             } else
-                displayMsg("Les mdp ne correspondent pas.");
+                showMessage("Les mdp ne correspondent pas.");
 
         }
     };
@@ -86,26 +98,26 @@ public class LoginActivity extends AppCompatActivity {
          */
         switch (resultCode) {
             case "0":
-                this.displayMsg("Connexion OK. ");
+                this.showMessage("Connexion OK. ");
                 break;
             case "100":
-                this.displayMsg("Problème de pseudo (non transmis ou vide). ");
+                this.showMessage("Problème de pseudo (non transmis ou vide). ");
                 break;
             case "110":
-                this.displayMsg("Problème de mot de passe (non transmis ou vide). ");
+                this.showMessage("Problème de mot de passe (non transmis ou vide). ");
                 break;
             case "200":
-                this.displayMsg("Combinaison pseudo/mot de passe incorrecte. ");
+                this.showMessage("Combinaison pseudo/mot de passe incorrecte. ");
                 break;
             case "1000":
-                this.displayMsg("Problème de connexion à la DB. ");
+                this.showMessage("Problème de connexion à la DB. ");
                 break;
             case "2000":
-                this.displayMsg("Un problème autre est survenu. ");
+                this.showMessage("Un problème autre est survenu. ");
                 break;
         }
         if(resultCode.length()==2) {
-            this.displayMsg("Connexion OK. ");
+            this.showMessage("Connexion OK. ");
             EditText et_username = (EditText) findViewById(R.id.et_userName);
             EditText et_password = (EditText) findViewById(R.id.et_password1);
             //Si les identifiants sont bons, alors on start la prochaine activity
@@ -116,37 +128,41 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         if(resultCode.length()==4)
-            this.displayMsg("Combinaison pseudo/mot de passe incorrecte. ");
+            this.showMessage("Combinaison pseudo/mot de passe incorrecte. ");
     }
 
     /**
      * Méthode qui reçoit la réponse de la classe AsyncRegister
      * @param resultCode
      */
-    public void populateRegister(Integer resultCode)
-    {
-        /**
-         * Récupération des messages dans notre fichier string.xml pour la langue
-         */
-        String code0    = "Sauvegarde dans la DB OK. ";
-        String code100  = "Problème de pseudo (non transmis ou vide). ";
-        String code110  = "Problème de mot de passe (non transmis ou vide). ";
-        String code200  = "Pseudo déjà existant. ";
-        String code1000 = "Problème de connexion à la DB. ";
-        String code2000 = "Un problème autre est survenu. ";
-
-        switch (resultCode) {
-            case 0: displayMsg(code0);
+    public void populateRegister(ArrayList<Integer> resultCode) {
+        //showMessage(resultCode.get(0) + " et " + resultCode.get(1));
+        switch (resultCode.get(0)) {
+            case 0:
+                showMessage("Sauvegarde dans la DB OK. ");
+                EditText et_username = (EditText) findViewById(R.id.et_userName);
+                EditText et_password = (EditText) findViewById(R.id.et_password1);
+                //Si les identifiants sont bons, alors on start la prochaine activity
+                Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
+                intent.putExtra("pseudo", et_username.getText());
+                intent.putExtra("mdp", et_password.getText());
+                //intent.putExtra("id", resultCode.get(1));
+                startActivity(intent);
                 break;
-            case 100: displayMsg(code100);
+            case 100:
+                showMessage("Problème de pseudo (non transmis ou vide). ");
                 break;
-            case 110: displayMsg(code110);
+            case 110:
+                showMessage("Problème de mot de passe (non transmis ou vide). ");
                 break;
-            case 200: displayMsg(code200);
+            case 200:
+                showMessage("Pseudo déjà existant. ");
                 break;
-            case 1000: displayMsg(code1000);
+            case 1000:
+                showMessage("Problème de connexion à la DB. ");
                 break;
-            case 2000: displayMsg(code2000);
+            case 2000:
+                showMessage("Un problème autre est survenu. ");
                 break;
         }
     }
@@ -154,11 +170,8 @@ public class LoginActivity extends AppCompatActivity {
      * Méthode utilitaire qui sert à afficher les messages d'erreurs
      * @param message
      */
-    private void displayMsg(String message)
-    {
+    private void showMessage(String message) {
         CharSequence text = message;
-        int duration = Toast.LENGTH_LONG;
-        Toast toast = Toast.makeText(this, text, duration);
-        toast.show();
+        Toast.makeText(this, text, Toast.LENGTH_LONG).show();
     }
 }
