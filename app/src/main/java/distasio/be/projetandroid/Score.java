@@ -7,8 +7,7 @@ package distasio.be.projetandroid;
 public class Score {
     private int id;
     private String jeu;
-    private String score;
-    //private Utilisateur utilisateur;
+    private int score;
     private int id_utilisateur;
 
     /***
@@ -29,10 +28,10 @@ public class Score {
         this.jeu = jeu;
     }
 
-    public String getScore() {
+    public int getScore() {
         return score;
     }
-    public void setScore(String score) {
+    public void setScore(int score) {
         this.score = score;
     }
 

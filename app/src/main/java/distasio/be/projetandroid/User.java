@@ -33,4 +33,15 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    /***
+     * CONSTRUCTORS
+     */
+
+    public User(){ }
+    public User(int id, String username, String password) {
+        this.setId(id);
+        this.setUsername(username);
+        this.setPassword(password);
+    }
 }

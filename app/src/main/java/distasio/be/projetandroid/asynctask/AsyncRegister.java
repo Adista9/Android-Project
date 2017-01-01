@@ -21,7 +21,7 @@ import distasio.be.projetandroid.activity.LoginActivity;
  * Created by Anthony on 25-12-16.
  */
 
-public class AsyncRegister extends AsyncTask<String, Void , ArrayList> {
+public class AsyncRegister extends AsyncTask<String, Void , ArrayList<Integer>> {
     private LoginActivity loginActivity;
     private ProgressDialog progressDialog;
 
@@ -39,10 +39,11 @@ public class AsyncRegister extends AsyncTask<String, Void , ArrayList> {
     }
 
     @Override
-    protected ArrayList doInBackground(String... params) {
+    protected ArrayList<Integer> doInBackground(String... params) {
         User registeredUser = new User();
         String name;
         int code = 10;
+        int id;
         ArrayList<Integer> res = new ArrayList<>();
 
         registeredUser.setUsername(params[0]);
@@ -76,12 +77,11 @@ public class AsyncRegister extends AsyncTask<String, Void , ArrayList> {
                         res.add(code);
                     }
                     if(code == 0) {
-                        // #TODO à corriger
-                        if (json.hasNext()) {
-                            String name2 = json.nextName();
-                            int id = json.nextInt();
-                            res.add(id);
-                        }
+                        String nameid = json.nextName();
+                        //Log.d("nameid = ", nameid);
+                        id = json.nextInt();
+                        res.add(id);
+                        //Log.d("id = ", id+" ");
                     }
                 }
                 json.endObject();
@@ -100,7 +100,7 @@ public class AsyncRegister extends AsyncTask<String, Void , ArrayList> {
     }
 
     @Override
-    protected void onPostExecute(ArrayList result) {
+    protected void onPostExecute(ArrayList<Integer> result) {
         if(progressDialog.isShowing()) {
             progressDialog.dismiss();
         }

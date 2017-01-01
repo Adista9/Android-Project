@@ -42,13 +42,8 @@ public class LoginActivity extends AppCompatActivity {
                     Button btn_login = (Button)findViewById(R.id.btn_login);
                     btn_login.setVisibility(View.VISIBLE);
                 }
-
-
-
             }
         });
-
-        //btn_register.setOnClickListener(checkRegister);
     }
 
     //Login part
@@ -90,12 +85,6 @@ public class LoginActivity extends AppCompatActivity {
     };
 
     public void populateLogin(String resultCode) {
-        /**
-         * Problème ici, les codes retours 0 et 200 n'entrent pas dans le switch case
-         * j'ai vérifié leurs tailles, en faisant un "resultCode.length()" quand il ressortait le 0, il mettait
-         * que la taille est égale à 2, alors qu'il n'y a qu'un chiffre, et pour 200, la taille = 4,
-         * je ne comprends pas
-         */
         switch (resultCode) {
             case "0":
                 this.showMessage("Connexion OK. ");
@@ -146,7 +135,8 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
                 intent.putExtra("pseudo", et_username.getText());
                 intent.putExtra("mdp", et_password.getText());
-                //intent.putExtra("id", resultCode.get(1));
+                intent.putExtra("id_utilisateur", resultCode.get(1));
+                Log.d("id", resultCode.get(1)+ "");
                 startActivity(intent);
                 break;
             case 100:
