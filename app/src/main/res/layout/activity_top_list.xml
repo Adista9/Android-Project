@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_top_list"
     android:layout_width="match_parent"
@@ -8,6 +8,57 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="distasio.be.projetandroid.activity.TopListActivity">
+    tools:context="distasio.be.projetandroid.activity.TopListActivity"
+    android:orientation="vertical">
 
-</RelativeLayout>
+    <TextView
+        android:text="TOP 10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_top10"
+        android:textSize="30sp"
+        android:fontFamily="sans-serif"
+        android:textStyle="normal|bold"
+        android:textAlignment="center" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:id="@+id/et_search_name"
+        android:inputType="text"
+        android:hint="Entrez le nom du jeu" />
+
+    <Button
+        android:text="Afficher top 10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_search_top10" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="5dp">
+        <TextView
+            android:id="@+id/tv_position_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Position"
+            android:textSize="18sp" />
+        <TextView
+            android:id="@+id/tv_username_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Username"
+            android:layout_marginLeft="8dp"
+            android:textSize="18sp" />
+        <TextView
+            android:id="@+id/tv_score_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Score"
+            android:layout_marginLeft="8dp"
+            android:textSize="18sp" />
+    </LinearLayout>
+</LinearLayout>

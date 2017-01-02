@@ -20,11 +20,10 @@ public class AddScoreActivity extends AppCompatActivity {
         Button btn_add = (Button) findViewById(R.id.btn_add);
         btn_add.setOnClickListener(checkAddScore);
     }
-    private View.OnClickListener checkAddScore = new View.OnClickListener()
-    {
+
+    private View.OnClickListener checkAddScore = new View.OnClickListener() {
         @Override
-        public void onClick(View v)
-        {
+        public void onClick(View v) {
             EditText et_game = (EditText)findViewById(R.id.et_game_name);
             EditText et_score = (EditText) findViewById(R.id.et_score);
             Intent intent = getIntent();
@@ -33,8 +32,7 @@ public class AddScoreActivity extends AppCompatActivity {
             int id_utilisateur = intent.getIntExtra("id_utilisateur", 0);
             try {
                 new AsyncAddScore(AddScoreActivity.this).execute(et_game.getText().toString(), et_score.getText().toString(), Integer.toString(id_utilisateur));
-            }
-            catch (Exception e){
+            } catch (Exception e){
                 showMessage(e.getMessage());
             }
         }

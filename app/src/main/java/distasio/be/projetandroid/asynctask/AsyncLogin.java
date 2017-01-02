@@ -3,12 +3,10 @@ package distasio.be.projetandroid.asynctask;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedWriter;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -67,7 +65,6 @@ public class AsyncLogin extends AsyncTask<String, Void, String> {
             connection.connect();
 
             if(connection.getResponseCode() == 200) {
-                //InputStreamReader inputStream = new InputStreamReader(connection.getInputStream(), "UTF-8");
                 InputStream inputStream = new BufferedInputStream(connection.getInputStream());
 
                 Scanner sc = new Scanner(inputStream);

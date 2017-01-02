@@ -21,7 +21,7 @@ import distasio.be.projetandroid.activity.LoginActivity;
  * Created by Anthony on 25-12-16.
  */
 
-public class AsyncRegister extends AsyncTask<String, Void , ArrayList<Integer>> {
+public class AsyncRegister extends AsyncTask<String, Void, ArrayList<Integer>> {
     private LoginActivity loginActivity;
     private ProgressDialog progressDialog;
 
@@ -78,10 +78,8 @@ public class AsyncRegister extends AsyncTask<String, Void , ArrayList<Integer>> 
                     }
                     if(code == 0) {
                         String nameid = json.nextName();
-                        //Log.d("nameid = ", nameid);
                         id = json.nextInt();
                         res.add(id);
-                        //Log.d("id = ", id+" ");
                     }
                 }
                 json.endObject();

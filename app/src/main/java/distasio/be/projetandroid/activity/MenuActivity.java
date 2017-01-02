@@ -61,7 +61,7 @@ public class MenuActivity extends AppCompatActivity {
         String pseudo = intent.getStringExtra("pseudo");
         String mdp = intent.getStringExtra("mdp");
         int id_utilisateur = intent.getIntExtra("id_utilisateur", 0);
-        Log.d("test ", pseudo + " " + mdp + " " + id_utilisateur + " ");
+        //Log.d("test ", pseudo + " " + mdp + " " + id_utilisateur + " ");
         btn_addScore    = (Button) findViewById(R.id.btn_addScore);
         btn_showTop10   = (Button) findViewById(R.id.btn_showTop10);
         btn_showGames   = (Button) findViewById(R.id.btn_showGames);
