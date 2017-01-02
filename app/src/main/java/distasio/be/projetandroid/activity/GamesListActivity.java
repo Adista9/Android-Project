@@ -1,15 +1,143 @@
 package distasio.be.projetandroid.activity;
 
+import android.content.Intent;
+import android.database.CursorJoiner;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import distasio.be.projetandroid.R;
+import distasio.be.projetandroid.User;
+import distasio.be.projetandroid.arrayadapter.CustomScoreUserAdapter;
+import distasio.be.projetandroid.arrayadapter.UserAdapter;
+import distasio.be.projetandroid.asynctask.AsyncGameList;
+import distasio.be.projetandroid.asynctask.AsyncUserList;
+import distasio.be.projetandroid.asynctask.CustomScoreUser;
+import distasio.be.projetandroid.singleton.TopList;
+import distasio.be.projetandroid.singleton.UserList;
 
 public class GamesListActivity extends AppCompatActivity {
+    //J'ouvre le top 10 du jeu sélectionné
+    AdapterView.OnItemClickListener listenerListe = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            try {
+                ListView lv = (ListView) findViewById(R.id.lv_game_user_score);
+                CustomScoreUser  itemValue    = (CustomScoreUser) lv.getItemAtPosition(position);
+                Intent intent = new Intent(view.getContext(), TopListActivity.class);
+                intent.putExtra("name_game", itemValue.getGameName());
+                startActivity(intent);
+            } catch (Exception e) {
+                Log.v("Error : ", e.getMessage());
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_games_list);
+        try {
+            new AsyncGameList(GamesListActivity.this).execute();
+        } catch (Exception e){
+            showMessage(e.getMessage());
+        }
+    }
+
+    public void populate(Integer resultCode) {
+        switch (resultCode) {
+            case 0:
+                showMessage("Aucun problème. ");
+
+                final Button btn_prev = (Button)findViewById(R.id.btn_previous);
+                final Button btn_next = (Button)findViewById(R.id.btn_next);
+                TextView title    = (TextView)findViewById(R.id.title);
+
+                TopList customListSingleton = TopList.getInstance();
+                ArrayList<CustomScoreUser> customList = new ArrayList<CustomScoreUser>();
+
+                final int max_item = 5;
+                final int nbr_item = customListSingleton.getTopList().size();
+
+                for (int i = 0; i < max_item; i++)
+                    customList.add(customListSingleton.getTopList().get(i));
+
+                CustomScoreUserAdapter adapter = new CustomScoreUserAdapter(this, customList);
+                ListView listView = (ListView) findViewById(R.id.lv_game_user_score);
+                listView.setAdapter(adapter);
+
+                btn_next.setEnabled(false);
+
+                //Si le nombre d'item - le maximum d'item est plus grand que 0 alors j'affiche le bouton next
+                if((nbr_item - max_item) > 0){
+                    btn_next.setEnabled(true);
+                    btn_next.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
+                            TopList customListSingleton = TopList.getInstance();
+                            ArrayList<CustomScoreUser> customList = new ArrayList<CustomScoreUser>();
+                            for (int i = max_item + 1; i < max_item + 6; i++)
+                                customList.add(customListSingleton.getTopList().get(i));
+
+                            CustomScoreUserAdapter adapter = new CustomScoreUserAdapter(GamesListActivity.this, customList);
+                            ListView listView = (ListView) findViewById(R.id.lv_game_user_score);
+                            listView.setAdapter(adapter);
+                            // 5 - (10 - 5)
+                            if(max_item - (nbr_item - 5) > 0)
+                                btn_next.setEnabled(true);
+                            else
+                                btn_next.setEnabled(false);
+                            btn_prev.setEnabled(true);
+                            btn_prev.setOnClickListener(new View.OnClickListener() {
+                                public void onClick(View v) {
+                                    TopList customListSingleton = TopList.getInstance();
+                                    ArrayList<CustomScoreUser> customList = new ArrayList<CustomScoreUser>();
+                                    for (int i = 0; i < max_item; i++)
+                                        customList.add(customListSingleton.getTopList().get(i));
+
+                                    CustomScoreUserAdapter adapter = new CustomScoreUserAdapter(GamesListActivity.this, customList);
+                                    ListView listView = (ListView) findViewById(R.id.lv_game_user_score);
+                                    listView.setAdapter(adapter);
+
+                                    btn_prev.setEnabled(false);
+
+                                    btn_next.setEnabled(true);
+                                }
+                            });
+                        }
+                    });
+                }
+
+                btn_prev.setEnabled(false);
+
+
+
+
+
+                break;
+            case 300:
+                showMessage("Aucun jeu trouvé (la table des scores est vide pour le moment).");
+                break;
+            case 1000:
+                showMessage("Problème de connexion à la DB. ");
+                break;
+            case 2000:
+                showMessage("Un problème autre est survenu. ");
+                break;
+        }
+        if(resultCode == null)
+            showMessage("Aucun score trouvé. ");
+    }
+    private void showMessage(String message) {
+        CharSequence text = message;
+        Toast.makeText(this, text, Toast.LENGTH_LONG).show();
     }
 }

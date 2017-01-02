@@ -6,6 +6,7 @@ package distasio.be.projetandroid.asynctask;
 
 public class CustomScoreUser {
     private int code;
+    private String game_name;
     private String username;
     private int score;
 
@@ -15,6 +16,9 @@ public class CustomScoreUser {
     public void setCode(int code) {
         this.code = code;
     }
+
+    public String getGameName(){ return game_name; }
+    public void setGameName(String game_name) { this.game_name = game_name; }
 
     public String getUsername() {
         return username;
@@ -32,6 +36,7 @@ public class CustomScoreUser {
     public String toString() {
         return "CustomScoreUser{" +
                 "code='" + code + '\'' +
+                ", game name= '" + game_name + '\'' +
                 ", username='" + username + '\'' +
                 ", score='" + score + '\'' +
                 '}';

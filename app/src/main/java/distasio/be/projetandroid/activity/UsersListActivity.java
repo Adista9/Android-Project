@@ -24,7 +24,11 @@ public class UsersListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_users_list);
-        new AsyncUserList(UsersListActivity.this).execute();
+        try {
+            new AsyncUserList(UsersListActivity.this).execute();
+        } catch (Exception e){
+            showMessage(e.getMessage());
+        }
     }
 
     public void populate(Integer resultCode) {

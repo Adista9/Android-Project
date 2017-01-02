@@ -17,7 +17,6 @@ import distasio.be.projetandroid.User;
  */
 
 public class UserAdapter extends ArrayAdapter<User> {
-
     public UserAdapter(Context context, ArrayList<User> users) {
         super(context, 0, users);
     }

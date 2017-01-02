@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_games_list"
     android:layout_width="match_parent"
@@ -8,6 +9,43 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="distasio.be.projetandroid.activity.GamesListActivity">
+    tools:context="distasio.be.projetandroid.activity.GamesListActivity"
+    android:weightSum="1"
+    android:orientation="vertical">
 
-</RelativeLayout>
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="321dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/lv_game_user_score"
+        android:layout_weight="0.35" />
+
+    <Button
+        android:text="Next"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/btn_previous"
+        android:layout_alignEnd="@+id/btn_previous"
+        android:id="@+id/btn_next"
+        android:layout_height="50dp" />
+
+    <Button
+        android:text="Previous"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/btn_previous"
+        android:layout_alignEnd="@+id/btn_previous"
+        android:id="@+id/btn_previous"
+        android:layout_height="50dp" />
+
+    <Button
+        android:text="Back"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/btn_previous"
+        android:layout_alignEnd="@+id/btn_previous"
+        android:id="@+id/btn_back"
+        android:layout_height="50dp" />
+
+</LinearLayout>
