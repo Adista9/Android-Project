@@ -40,9 +40,6 @@ public class AsyncTopList extends AsyncTask<String, Void, ArrayList> {
         Score score = new Score();
         score.setJeu(params[0]);
 
-        TopList topList = TopList.getInstance();
-        topList.clearList();
-
         //Liste des pseudos + scores
         ArrayList<CustomScoreUser> topScoreUserList = new ArrayList<CustomScoreUser>();
         int code = 0;

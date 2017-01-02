@@ -21,6 +21,7 @@
         <activity android:name=".activity.AddScoreActivity" />
         <activity android:name=".activity.TopListActivity" />
         <activity android:name=".activity.GamesListActivity" />
-        <activity android:name=".activity.UsersListActivity"></activity>
+        <activity android:name=".activity.UsersListActivity" />
     </application>
+
 </manifest>
