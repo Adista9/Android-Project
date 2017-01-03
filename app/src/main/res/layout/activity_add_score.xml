@@ -19,11 +19,11 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:id="@+id/et_game_name"
-        android:layout_width="wrap_content"
-        android:hint="Nom du jeu" />
+        android:layout_width="match_parent"
+        android:hint="@string/game_name_hint" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="text"
         android:ems="10"
@@ -31,14 +31,22 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:id="@+id/et_score"
-        android:hint="Score du jeu" />
+        android:hint="@string/game_score_hint" />
 
     <Button
-        android:text="Ajouter"
-        android:layout_width="151dp"
+        android:text="@string/add"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/et_score"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:id="@+id/btn_add" />
+    <Button
+        android:text="@string/back"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/btn_previous"
+        android:layout_alignEnd="@+id/btn_previous"
+        android:id="@+id/btn_back"
+        android:layout_height="wrap_content" />
 </LinearLayout>

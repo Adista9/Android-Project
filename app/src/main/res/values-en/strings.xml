@@ -1,2 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">ProjetAndroid</string>
+    <string name="action_register">Register</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="add">Add</string>
+    <string name="add_score">Add a score</string>
+    <string name="back">Back</string>
+    <string name="display_top_ten">Display the top 10</string>
+    <string name="error_db">Database connection problem </string>
+    <string name="error_exist_username">This username already exists. </string>
+    <string name="error_other_problem">An other problem appeared. </string>
+    <string name="error_password_login">Password problem (Not transmitted or empty). </string>
+    <string name="error_pwd">The passwords do not match.</string>
+    <string name="error_username_login">Username problem (Not transmitted or empty). </string>
+    <string name="error_usrpwd_login">Your username/password is invalid. </string>
+    <string name="game_name_hint">Name of the game...</string>
+    <string name="game_not_found">No game found (The score table is empty). </string>
+    <string name="game_score_hint">Score of the game...</string>
+    <string name="next">Next</string>
+    <string name="no_id_transmitted">ID problem (not transmitted or null). </string>
+    <string name="no_name_game_transmitted">Problem of game name (not transmitted or null). </string>
+    <string name="no_name_transmitted">Game name not transmitted or empty. </string>
+    <string name="no_problem">No problem. </string>
+    <string name="no_score_transmitted">Score problem (not transmitted or null). </string>
+    <string name="password_hint">Password...</string>
+    <string name="previous">Previous"</string>
+    <string name="save_db_ok">Data saved. </string>
+    <string name="score_added">Score added. </string>
+    <string name="score_not_found">No score found. </string>
+    <string name="search_game_hint">Enter the name of a game...</string>
+    <string name="show_games">Show the games</string>
+    <string name="show_top_ten">Show the top 10 of a game</string>
+    <string name="show_users">Show the users</string>
+    <string name="sign_in_ok">Login successfully. Welcome. </string>
+    <string name="top_ten">TOP 10</string>
+    <string name="user_not_found">No user found (The user table is empty). </string>
+    <string name="username">Username</string>
+    <string name="username_hint">Username...</string>
+</resources>

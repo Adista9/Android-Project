@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_games_list"
     android:layout_width="match_parent"
@@ -22,7 +21,7 @@
         android:layout_weight="0.35" />
 
     <Button
-        android:text="Next"
+        android:text="@string/next"
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/btn_previous"
@@ -31,7 +30,7 @@
         android:layout_height="50dp" />
 
     <Button
-        android:text="Previous"
+        android:text="@string/previous"
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/btn_previous"
@@ -40,12 +39,11 @@
         android:layout_height="50dp" />
 
     <Button
-        android:text="Back"
+        android:text="@string/back"
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/btn_previous"
         android:layout_alignEnd="@+id/btn_previous"
         android:id="@+id/btn_back"
         android:layout_height="50dp" />
-
 </LinearLayout>

@@ -10,9 +10,20 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="distasio.be.projetandroid.activity.UsersListActivity">
 
+
     <ListView
         android:layout_width="match_parent"
         android:layout_alignParentTop="true"
         android:layout_height="match_parent"
         android:id="@+id/lv_users" />
+
+    <Button
+        android:text="@string/back"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/btn_previous"
+        android:layout_alignEnd="@+id/btn_previous"
+        android:id="@+id/btn_back"
+        android:layout_height="wrap_content" />
+
 </RelativeLayout>

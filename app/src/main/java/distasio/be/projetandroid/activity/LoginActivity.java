@@ -34,14 +34,7 @@ public class LoginActivity extends AppCompatActivity {
                 //Je rend visible l'edit text du 2ème mdp quand on clique sur register
                 EditText et_password2 = (EditText) findViewById(R.id.et_password2);
                 et_password2.setVisibility(View.VISIBLE);
-                if(!et_password2.getText().equals("")){
-                    Button btn_login = (Button)findViewById(R.id.btn_login);
-                    btn_login.setVisibility(View.INVISIBLE);
-                    v.setOnClickListener(checkRegister);
-                } else {
-                    Button btn_login = (Button)findViewById(R.id.btn_login);
-                    btn_login.setVisibility(View.VISIBLE);
-                }
+                v.setOnClickListener(checkRegister);
             }
         });
     }
@@ -79,56 +72,47 @@ public class LoginActivity extends AppCompatActivity {
                     showMessage(e.getMessage());
                 }
             } else
-                showMessage("Les mdp ne correspondent pas.");
+                showMessage(getString(R.string.error_pwd));
 
         }
     };
 
-    public void populateLogin(String resultCode) {
-        switch (resultCode) {
-            case "0":
-                this.showMessage("Connexion OK. ");
-                break;
-            case "100":
-                this.showMessage("Problème de pseudo (non transmis ou vide). ");
-                break;
-            case "110":
-                this.showMessage("Problème de mot de passe (non transmis ou vide). ");
-                break;
-            case "200":
-                this.showMessage("Combinaison pseudo/mot de passe incorrecte. ");
-                break;
-            case "1000":
-                this.showMessage("Problème de connexion à la DB. ");
-                break;
-            case "2000":
-                this.showMessage("Un problème autre est survenu. ");
-                break;
-        }
-        if(resultCode.length()==2) {
-            this.showMessage("Connexion OK. ");
-            EditText et_username = (EditText) findViewById(R.id.et_userName);
-            EditText et_password = (EditText) findViewById(R.id.et_password1);
-            //Si les identifiants sont bons, alors on start la prochaine activity
-            Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
-            intent.putExtra("pseudo", et_username.getText());
-            intent.putExtra("mdp", et_password.getText());
-            startActivity(intent);
-        }
+    public void populateLogin(ArrayList<Integer> list_result) {
+        switch (list_result.get(0)) {
+            case 0:
+                this.showMessage(getString(R.string.sign_in_ok));
+                EditText et_username = (EditText) findViewById(R.id.et_userName);
+                EditText et_password = (EditText) findViewById(R.id.et_password1);
 
-        if(resultCode.length()==4)
-            this.showMessage("Combinaison pseudo/mot de passe incorrecte. ");
+                //Si les identifiants sont bons, alors on start la prochaine activity
+                Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
+                intent.putExtra("username", et_username.getText());
+                intent.putExtra("pwd", et_password.getText());
+                intent.putExtra("id_user", list_result.get(1));
+                startActivity(intent);
+                break;
+            case 100:
+                this.showMessage(getString(R.string.error_username_login));
+                break;
+            case 110:
+                this.showMessage(getString(R.string.error_password_login));
+                break;
+            case 200:
+                this.showMessage(getString(R.string.error_usrpwd_login));
+                break;
+            case 1000:
+                this.showMessage(getString(R.string.error_db));
+                break;
+            case 2000:
+                this.showMessage(getString(R.string.error_other_problem));
+                break;
+        }
     }
 
-    /**
-     * Méthode qui reçoit la réponse de la classe AsyncRegister
-     * @param resultCode
-     */
     public void populateRegister(ArrayList<Integer> resultCode) {
-        //showMessage(resultCode.get(0) + " et " + resultCode.get(1));
         switch (resultCode.get(0)) {
             case 0:
-                showMessage("Sauvegarde dans la DB OK. ");
+                showMessage(getString(R.string.save_db_ok));
                 EditText et_username = (EditText) findViewById(R.id.et_userName);
                 EditText et_password = (EditText) findViewById(R.id.et_password1);
                 //Si les identifiants sont bons, alors on start la prochaine activity
@@ -136,30 +120,26 @@ public class LoginActivity extends AppCompatActivity {
                 intent.putExtra("pseudo", et_username.getText());
                 intent.putExtra("mdp", et_password.getText());
                 intent.putExtra("id_utilisateur", resultCode.get(1));
-                Log.d("id", resultCode.get(1)+ "");
                 startActivity(intent);
                 break;
             case 100:
-                showMessage("Problème de pseudo (non transmis ou vide). ");
+                showMessage(getString(R.string.error_username_login));
                 break;
             case 110:
-                showMessage("Problème de mot de passe (non transmis ou vide). ");
+                showMessage(getString(R.string.error_password_login));
                 break;
             case 200:
-                showMessage("Pseudo déjà existant. ");
+                showMessage(getString(R.string.error_exist_username));
                 break;
             case 1000:
-                showMessage("Problème de connexion à la DB. ");
+                showMessage(getString(R.string.error_db));
                 break;
             case 2000:
-                showMessage("Un problème autre est survenu. ");
+                showMessage(getString(R.string.error_other_problem));
                 break;
         }
     }
-    /**
-     * Méthode utilitaire qui sert à afficher les messages d'erreurs
-     * @param message
-     */
+
     private void showMessage(String message) {
         CharSequence text = message;
         Toast.makeText(this, text, Toast.LENGTH_LONG).show();

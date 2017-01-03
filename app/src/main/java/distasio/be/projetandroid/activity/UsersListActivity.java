@@ -1,12 +1,11 @@
 package distasio.be.projetandroid.activity;
 
-import android.app.ActionBar;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -15,7 +14,6 @@ import distasio.be.projetandroid.R;
 import distasio.be.projetandroid.User;
 import distasio.be.projetandroid.arrayadapter.UserAdapter;
 import distasio.be.projetandroid.asynctask.AsyncUserList;
-import distasio.be.projetandroid.asynctask.CustomScoreUser;
 import distasio.be.projetandroid.singleton.UserList;
 
 public class UsersListActivity extends AppCompatActivity {
@@ -29,12 +27,22 @@ public class UsersListActivity extends AppCompatActivity {
         } catch (Exception e){
             showMessage(e.getMessage());
         }
+        Button btn_back = (Button) findViewById(R.id.btn_back);
+        btn_back.setOnClickListener(onclick_back);
     }
+
+    private View.OnClickListener onclick_back = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(v.getContext(), MenuActivity.class);
+            startActivity(intent);
+        }
+    };
 
     public void populate(Integer resultCode) {
         switch (resultCode) {
             case 0:
-                showMessage("Aucun problème. ");
+                showMessage(getString(R.string.no_problem));
                 UserList userListSingleton = UserList.getInstance();
                 ArrayList<User> userList = new ArrayList<User>();
 
@@ -46,17 +54,15 @@ public class UsersListActivity extends AppCompatActivity {
                 listView.setAdapter(adapter);
                 break;
             case 300:
-                showMessage("Aucun pseudo trouvé (la table des scores est vide pour le moment).");
+                showMessage(getString(R.string.user_not_found));
                 break;
             case 1000:
-                showMessage("Problème de connexion à la DB. ");
+                showMessage(getString(R.string.error_db));
                 break;
             case 2000:
-                showMessage("Un problème autre est survenu. ");
+                showMessage(getString(R.string.error_other_problem));
                 break;
         }
-        if(resultCode == null)
-            showMessage("Aucun score trouvé. ");
     }
     private void showMessage(String message) {
         CharSequence text = message;

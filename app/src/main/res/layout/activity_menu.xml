@@ -12,7 +12,7 @@
     android:orientation ="vertical">
 
     <Button
-        android:text="Add a score"
+        android:text="@string/add_score"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btn_addScore"
@@ -23,7 +23,7 @@
         android:elevation="0dp" />
 
     <Button
-        android:text="Show the top 10 of a game"
+        android:text="@string/show_top_ten"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btn_addScore"
         android:layout_alignParentLeft="true"
@@ -32,7 +32,7 @@
         android:layout_width="match_parent" />
 
     <Button
-        android:text="Show the games"
+        android:text="@string/show_games"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btn_showTop10"
@@ -41,12 +41,11 @@
         android:id="@+id/btn_showGames" />
 
     <Button
-        android:text="Show the users"
+        android:text="@string/show_users"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btn_showUsers"
         android:layout_below="@+id/btn_showGames"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-
 </LinearLayout>

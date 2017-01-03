@@ -18,7 +18,7 @@ import distasio.be.projetandroid.singleton.TopList;
  * Created by Anthony on 26-12-16.
  */
 
-public class AsyncTopList extends AsyncTask<String, Void, ArrayList> {
+public class AsyncTopList extends AsyncTask<String, Void, Integer> {
     private TopListActivity topListActivity;
     private ProgressDialog progressDialog;
 
@@ -36,12 +36,14 @@ public class AsyncTopList extends AsyncTask<String, Void, ArrayList> {
     }
 
     @Override
-    protected ArrayList doInBackground(String... params) {
+    protected Integer doInBackground(String... params) {
         Score score = new Score();
         score.setJeu(params[0]);
 
         //Liste des pseudos + scores
-        ArrayList<CustomScoreUser> topScoreUserList = new ArrayList<CustomScoreUser>();
+        TopList topList = TopList.getInstance();
+        topList.clearList();
+
         int code = 0;
 
         String url_base = "http://androidproject.16mb.com/RPC/afficher_top.php?";
@@ -84,7 +86,7 @@ public class AsyncTopList extends AsyncTask<String, Void, ArrayList> {
                             }
                             json.endObject();
                             //J'ajoute l'objet crée avec le json
-                            topScoreUserList.add(item);
+                            topList.add(item);
                         }
                         json.endArray();
                     }
@@ -103,15 +105,14 @@ public class AsyncTopList extends AsyncTask<String, Void, ArrayList> {
                 Log.e("Disconnect", "Exception rencontrée.", e);
             }
         }
-        return topScoreUserList;
+        return code;
     }
 
     @Override
-    protected void onPostExecute(ArrayList result) {
+    protected void onPostExecute(Integer result) {
         if(progressDialog.isShowing()) {
             progressDialog.dismiss();
         }
-        if(result.size() != 0)
-            topListActivity.populateCustom(result);
+        topListActivity.populateCustom(result);
     }
 }

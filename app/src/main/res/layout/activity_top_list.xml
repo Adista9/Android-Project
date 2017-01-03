@@ -12,7 +12,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:text="TOP 10"
+        android:text="@string/top_ten"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tv_top10"
@@ -27,13 +27,22 @@
         android:ems="10"
         android:id="@+id/et_search_name"
         android:inputType="text"
-        android:hint="Entrez le nom du jeu" />
+        android:hint="@string/search_game_hint" />
 
     <Button
-        android:text="Afficher top 10"
+        android:text="@string/display_top_ten"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btn_search_top10" />
+
+    <Button
+            android:text="@string/back"
+            android:layout_width="match_parent"
+            android:layout_alignRight="@+id/btn_previous"
+            android:layout_alignEnd="@+id/btn_previous"
+            android:id="@+id/btn_back"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -44,20 +53,17 @@
             android:id="@+id/tv_position_top"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Position"
             android:textSize="18sp" />
         <TextView
             android:id="@+id/tv_username_top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Username"
             android:layout_marginLeft="8dp"
             android:textSize="18sp" />
         <TextView
             android:id="@+id/tv_score_top"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Score"
             android:layout_marginLeft="8dp"
             android:textSize="18sp" />
     </LinearLayout>

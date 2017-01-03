@@ -1,25 +1,29 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-    <TextView
-        android:id="@+id/tv_name_game_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Name game"
-        android:textSize="22sp"
-        android:layout_margin="10dp" />
-    <TextView
-        android:id="@+id/tv_username_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Username"
-        android:textSize="22sp"
-        android:layout_margin="10dp" />
-    <TextView
-        android:id="@+id/tv_score_max_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Score"
-        android:textSize="22sp"
-        android:layout_margin="10dp" />
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tv_name_game_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name game"
+            android:textSize="22sp"
+            android:layout_margin="10dp" />
+        <TextView
+            android:id="@+id/tv_username_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Username"
+            android:textSize="22sp"
+            android:layout_margin="10dp" />
+        <TextView
+            android:id="@+id/tv_score_max_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Score"
+            android:textSize="22sp"
+            android:layout_margin="10dp" />
+    </LinearLayout>
+</RelativeLayout>

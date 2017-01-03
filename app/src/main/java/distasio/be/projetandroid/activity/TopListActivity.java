@@ -1,6 +1,7 @@
 package distasio.be.projetandroid.activity;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import distasio.be.projetandroid.R;
 import distasio.be.projetandroid.asynctask.AsyncTopList;
 import distasio.be.projetandroid.asynctask.CustomScoreUser;
+import distasio.be.projetandroid.singleton.TopList;
 
 public class TopListActivity extends AppCompatActivity {
 
@@ -24,14 +26,21 @@ public class TopListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_top_list);
 
         Button btn_search_top10 = (Button) findViewById(R.id.btn_search_top10);
-        btn_search_top10.setOnClickListener(checkTop10);
+        btn_search_top10.setOnClickListener(check_top10);
 
-        EditText et_search_name = (EditText)findViewById(R.id.et_search_name);
-        if(et_search_name == null)
-            showMessage("Nom du jeu non transmis ou vide.");
+        Button btn_back = (Button) findViewById(R.id.btn_back);
+        btn_back.setOnClickListener(onclick_back);
     }
 
-    private View.OnClickListener checkTop10 = new View.OnClickListener() {
+    private View.OnClickListener onclick_back = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(v.getContext(), MenuActivity.class);
+            startActivity(intent);
+        }
+    };
+
+    private View.OnClickListener check_top10 = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             EditText et_search_name = (EditText)findViewById(R.id.et_search_name);
@@ -43,11 +52,12 @@ public class TopListActivity extends AppCompatActivity {
         }
     };
 
-    public void populateCustom(ArrayList<CustomScoreUser> resultCode) {
-        switch (resultCode.get(0).getCode()) {
+    public void populateCustom(Integer result_code) {
+        switch (result_code) {
             case 0:
-                showMessage("Aucun problème. ");
-                for (CustomScoreUser custom : resultCode){
+                showMessage(getString(R.string.no_problem));
+
+                for (CustomScoreUser custom : TopList.getInstance().getTopList()){
                     LinearLayout parent = (LinearLayout) findViewById(R.id.activity_top_list);
                     LinearLayout child = new LinearLayout(this);
                     child.setLayoutParams(new LinearLayout.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -57,7 +67,7 @@ public class TopListActivity extends AppCompatActivity {
                     TextView tv_username = new TextView(this);
                     TextView tv_score = new TextView(this);
 
-                    tv_position.setText(resultCode.indexOf(custom) + 1  + " ");
+                    tv_position.setText(TopList.getInstance().getTopList().indexOf(custom) + 1  + " ");
                     tv_username.setText(custom.getUsername() + " ");
                     tv_score.setText(custom.getScore() + " ");
 
@@ -69,21 +79,20 @@ public class TopListActivity extends AppCompatActivity {
                 }
                 break;
             case 100:
-                showMessage("Nom du jeu non transmis ou vide.");
+                showMessage(getString(R.string.no_name_transmitted));
                 break;
             case 300:
-                showMessage("Aucun score trouvé. ");
+                showMessage(getString(R.string.score_not_found));
                 break;
             case 1000:
-                showMessage("Problème de connexion à la DB. ");
+                showMessage(getString(R.string.error_db));
                 break;
             case 2000:
-                showMessage("Un problème autre est survenu. ");
+                showMessage(getString(R.string.error_other_problem));
                 break;
         }
-        if(resultCode == null)
-            showMessage("Aucun score trouvé. ");
     }
+
     private void showMessage(String message) {
         CharSequence text = message;
         Toast.makeText(this, text, Toast.LENGTH_LONG).show();

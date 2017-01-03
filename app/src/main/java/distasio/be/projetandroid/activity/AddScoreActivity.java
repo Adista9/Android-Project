@@ -18,20 +18,32 @@ public class AddScoreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_score);
 
         Button btn_add = (Button) findViewById(R.id.btn_add);
-        btn_add.setOnClickListener(checkAddScore);
+        btn_add.setOnClickListener(check_add_score);
+        Button btn_back = (Button) findViewById(R.id.btn_back);
+        btn_back.setOnClickListener(onclick_back);
     }
 
-    private View.OnClickListener checkAddScore = new View.OnClickListener() {
+    private View.OnClickListener onclick_back = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(v.getContext(), MenuActivity.class);
+            startActivity(intent);
+        }
+    };
+
+    private View.OnClickListener check_add_score = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             EditText et_game = (EditText)findViewById(R.id.et_game_name);
             EditText et_score = (EditText) findViewById(R.id.et_score);
+
             Intent intent = getIntent();
-            String pseudo = intent.getStringExtra("pseudo");
-            String mdp = intent.getStringExtra("mdp");
-            int id_utilisateur = intent.getIntExtra("id_utilisateur", 0);
+            String username = intent.getStringExtra("username");
+            String pwd = intent.getStringExtra("pwd");
+            int id_user = intent.getIntExtra("id_user", 0);
+
             try {
-                new AsyncAddScore(AddScoreActivity.this).execute(et_game.getText().toString(), et_score.getText().toString(), Integer.toString(id_utilisateur));
+                new AsyncAddScore(AddScoreActivity.this).execute(et_game.getText().toString(), et_score.getText().toString(), Integer.toString(id_user));
             } catch (Exception e){
                 showMessage(e.getMessage());
             }
@@ -41,40 +53,43 @@ public class AddScoreActivity extends AppCompatActivity {
     public void populate(String resultCode) {
         switch (resultCode) {
             case "0":
-                showMessage("Score ajouté. ");
+                showMessage(getString(R.string.score_added));
+
                 Intent intentReceived = getIntent();
                 Intent intent = new Intent(AddScoreActivity.this, MenuActivity.class);
-                intent.putExtra("pseudo", intentReceived.getStringExtra("pseudo"));
-                intent.putExtra("mdp", intentReceived.getStringExtra("mdp"));
-                intent.putExtra("id_utilisateur", intentReceived.getIntExtra("id_utilisateur", 0));
+                intent.putExtra("username", intentReceived.getStringExtra("username"));
+                intent.putExtra("pwd", intentReceived.getStringExtra("pwd"));
+                intent.putExtra("id_user", intentReceived.getIntExtra("id_user", 0));
                 startActivity(intent);
                 break;
             case "100":
-                showMessage("Problème de score (non transmis ou 0). ");
+                showMessage(getString(R.string.no_score_transmitted));
                 break;
             case "110":
-                showMessage("Problème de nom du jeu (non transmis ou vide). ");
+                showMessage(getString(R.string.no_name_game_transmitted));
                 break;
             case "120":
-                showMessage("Problème d'id (non transmis ou 0). ");
+                showMessage(getString(R.string.no_id_transmitted));
                 break;
             case "1000":
-                showMessage("Problème de connexion à la DB. ");
+                showMessage(getString(R.string.error_db));
                 break;
             case "2000":
-                showMessage("Un problème autre est survenu. ");
+                showMessage(getString(R.string.error_other_problem));
                 break;
         }
-        if(resultCode.length()==2) {
+
+        if(resultCode.length() == 2) {
             showMessage("Score ajouté. ");
             Intent intentReceived = getIntent();
             Intent intent = new Intent(AddScoreActivity.this, MenuActivity.class);
-            intent.putExtra("pseudo", intentReceived.getStringExtra("pseudo"));
-            intent.putExtra("mdp", intentReceived.getStringExtra("mdp"));
-            intent.putExtra("id_utilisateur", intentReceived.getIntExtra("id_utilisateur", 0));
+            intent.putExtra("username", intentReceived.getStringExtra("username"));
+            intent.putExtra("pwd", intentReceived.getStringExtra("pwd"));
+            intent.putExtra("id_user", intentReceived.getIntExtra("id_user", 0));
             startActivity(intent);
         }
     }
+
     private void showMessage(String message) {
         CharSequence text = message;
         Toast.makeText(this, text, Toast.LENGTH_LONG).show();

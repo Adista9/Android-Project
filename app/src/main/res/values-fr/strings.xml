@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ProjetAndroid</string>
+
+    <!-- Login and register-->
+    <string name="username_hint">Pseudo...</string>
+    <string name="password_hint">Mot de passe...</string>
+    <string name="action_sign_in">Se connecter</string>
+    <string name="action_register">S\'inscrire</string>
+    <string name="error_pwd">Les mdp ne correspondent pas.</string>
+    <string name="error_username_login">Problème de pseudo (non transmis ou vide). </string>
+    <string name="error_password_login">Problème de mot de passe (non transmis ou vide). </string>
+    <string name="error_usrpwd_login">Combinaison pseudo/mot de passe incorrecte. </string>
+    <string name="error_db">Problème de connexion à la DB. </string>
+    <string name="error_other_problem">Un problème autre est survenu. </string>
+    <string name="error_exist_username">Pseudo déjà existant. </string>
+    <string name="save_db_ok">Sauvegarde dans la DB OK. </string>
+    <string name="sign_in_ok">Connexion OK. Bienvenu(e)! </string>
+
+    <!-- Menu -->
+    <string name="add_score">Ajouter un score</string>
+    <string name="show_top_ten">Afficher le top 10 d\'un jeu</string>
+    <string name="show_games">Afficher les jeux</string>
+    <string name="show_users">Afficher les utilisateurs</string>
+
+    <!-- TOP 10 -->
+    <string name="top_ten">TOP 10</string>
+    <string name="search_game_hint">Nom du jeu..</string>
+    <string name="display_top_ten">Afficher le top 10</string>
+    <string name="back">Retour</string>
+    <string name="no_problem">Aucun problème. </string>
+    <string name="no_name_transmitted">Nom du jeu non transmis ou vide. </string>
+    <string name="score_not_found">Aucun score trouvé. </string>
+    <string name="username">Pseudo</string>
+
+    <!-- GAMES LIST -->
+    <string name="previous">Précédent"</string>
+    <string name="next">Suivant</string>
+    <string name="game_not_found">Aucun jeu trouvé (la table des scores est vide pour le moment). </string>
+
+    <!-- ADD SCORE -->
+    <string name="add">Ajouter</string>
+    <string name="game_score_hint">Score du jeu...</string>
+    <string name="game_name_hint">Nom du jeu...</string>
+
+    <string name="score_added">Score ajouté. </string>
+    <string name="no_score_transmitted">Problème de score (non transmis ou 0). </string>
+    <string name="no_name_game_transmitted">Problème de nom du jeu (non transmis ou vide). </string>
+    <string name="no_id_transmitted">Problème d\'id (non transmis ou 0). </string>
+
+    <!-- USERS LIST -->
+    <string name="user_not_found">Aucun pseudo trouvé (la table des scores est vide pour le moment). </string>
+</resources>

@@ -15,33 +15,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/et_userName"
-        android:hint="Pseudo..."
+        android:hint="@string/username_hint"
         style="@android:style/Widget.EditText" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
-        android:hint="Mot de passe..."
+        android:hint="@string/password_hint"
         android:id="@+id/et_password1" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
-        android:hint="Mot de passe..."
+        android:hint="@string/username_hint"
         android:id="@+id/et_password2" />
 
     <Button
-        android:text="Se connecter"
+        android:text="@string/action_sign_in"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btn_login" />
 
     <Button
-        android:text="S'inscrire"
+        android:text="@string/action_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btn_register" />
-
 </LinearLayout>
