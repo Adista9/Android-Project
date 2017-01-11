@@ -25,6 +25,18 @@ public class TopListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_top_list);
 
+        String name_game;
+        Bundle extras = getIntent().getExtras();
+        if(extras == null)
+            name_game = null;
+        else {
+            name_game = extras.getString("name_game");
+            try {
+                new AsyncTopList(TopListActivity.this).execute(name_game);
+            } catch (Exception e) {
+                showMessage(e.getMessage());
+            }
+        }
         Button btn_search_top10 = (Button) findViewById(R.id.btn_search_top10);
         btn_search_top10.setOnClickListener(check_top10);
 

@@ -93,15 +93,12 @@ public class AsyncTopList extends AsyncTask<String, Void, Integer> {
                 }
                 json.endObject();
             }
-        }
-        catch (Exception e){
+        } catch (Exception e){
             Log.e("RPC", "Exception rencontrée.", e);
-        }
-        finally {
+        } finally {
             try {
                 connection.disconnect();
-            }
-            catch (NullPointerException e) {
+            } catch (NullPointerException e) {
                 Log.e("Disconnect", "Exception rencontrée.", e);
             }
         }
